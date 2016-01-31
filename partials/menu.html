@@ -1,0 +1,28 @@
+<div id="header" ng-show="showHeader">
+	<h1>Plan Print Go</h1> 
+</div>
+<div id="menu">		
+	<span class="btn btn-success" ng-show="showUserName">Logged in as: {{loginUser}}</span>
+	<div class="btn-group" uib-dropdown is-open="loginButton.isopen">
+   		<button id="login-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+    		Account <span class="caret"></span>
+      	</button>
+      	<ul class="uib-dropdown-menu" role="menu" aria-labelledby="login-button">
+        	<li role="menuitem"><a href="#!/login">Login</a></li>
+        	<li role="menuitem"><a href="#!/newAccount">New Account</a></li>
+        	<li class="divider"></li>
+        	<li role="menuitem"><a href="#!/logout">Log out</a></li>
+    	</ul>
+    </div>
+    <div class="btn-group" uib-dropdown is-open="devButton.isopen">
+      	<button id="dev-button" type="button" class="btn btn-danger" uib-dropdown-toggle ng-disabled="disabled">
+        	Developer <span class="caret"></span>
+      	</button>
+      	<ul class="uib-dropdown-menu" role="menu" aria-labelledby="dev-button">
+        	<li role="menuitem"><a href="#!/updateCode">Update Code</a></li>
+        	<!-- li role="menuitem" ng-click="showTest()" class="m-list">Show Test Page</li-->
+        	<li class="divider"></li>
+        	<li role="menuitem" style="color:red"><a href="#!/updateDB">RESET DB</a></li>
+      	</ul>
+	</div>
+</div>

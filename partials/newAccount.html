@@ -1,0 +1,33 @@
+<div ng-include src="'partials/menu.html'"></div>
+<div class="eForm">
+	<br>
+	<form>
+		<table class="table">
+			<tbody>
+				<tr>
+					<td>Your Email</td>
+					<td><input type=text ng-model="auth.email" placeholder="Enter e-mail Address" > </td>
+				</tr>
+				<tr>
+					<td>Your Name</td>
+					<td><input type=text ng-model="auth.name" placeholder="Enter User Name"> </td>
+				</tr>
+				<tr>
+					<td>Password</td>
+					<td><input type=password ng-model="auth.pass1" placeholder="Enter Password"> </td>
+				</tr>
+				<tr>
+					<td>Confirm Password</td>
+					<td><input type=password ng-model="auth.pass2" placeholder="Enter Password Again"> </td>
+				</tr>
+				<tr>
+					<td colspan="2"><button class="btn btn-primary" ng-click="newAccount()">Ok</button>
+					<button class="btn btn-default"  ng-click="cancelLogin() ">Cancel</button></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+</div>
+<div id="status-bar">
+	{{submissionMessage}}<br>
+</div>

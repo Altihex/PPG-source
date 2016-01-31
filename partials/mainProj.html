@@ -1,0 +1,190 @@
+<div ng-init="init()"></div>
+<div ng-init="loadProject()"></div>
+<div ng-include src="'partials/menuLI.html'"></div>
+<div id="status-bar">
+	{{submissionMessage}}<br>
+</div>
+<div id="topl" class="panel-1" ng-init="tindex=0" >
+	<form name="mainEntryForm">
+		<table>
+			<thead class="tbl-rbord">
+				<tr><td colspan=7></td></tr>			
+				<tr><td colspan=7>
+						<div class="btn-group" uib-dropdown is-open="ActionButton.isopen" ng-show="showUserName">
+      						<button id="action-button" type="button" class="" uib-dropdown-toggle ng-disabled="disabled">
+        						Actions <span class="caret"></span>
+      						</button>
+      						<ul class="uib-dropdown-menu" role="menu" aria-labelledby="action-button">
+        						<li role="menuitem" ng-click="depAction('link')" class="m-list"> LINK</li>
+        						<li role="menuitem" ng-click="depAction('delink')" class="m-list">Delete Link</li>	
+        					</ul>
+    					</div>	
+					</td>
+				</tr>
+				<tr>
+					<th ng-repeat="lH in mainData.headerArray.leftHeaders|orderBy:'-leftHeaders'" style="width:{{getVal(lH,1)}}px" class="tbl-under">
+						<div ng-repeat="(key,value) in lH" {{pushHeaderArray(value)}}>
+							{{key}}
+						</div>
+					</th>
+				</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="row in mainData.rows" ng-class-even="'even-row'" ng-class-odd="'odd-row'" >
+						<td ng-repeat="column in mainHeader.cols" >
+							<div>
+								<!--  Display non updateables -->
+								<div ng-if="mainData.style.updateable[column]">
+									<div ng-if="column == 0 && mainData.cells[row][column] > 0" >
+										<input type="checkbox" name="selectRow" ng-model="mainData.deps[row]['status']" />
+											{{mainData.cells[row][column]}}									
+									</div>
+									<div ng-if="!mainData.style.date[column]" ng-style="{width: getVal(mainData.headerArray.leftHeaders[column],1) + 'px'}">
+										<div ng-if="!column==0">
+											{{mainData.cells[row][column]}}
+										</div>
+									</div>
+								</div>
+									<!--  Display Dates -->
+									<div ng-if="mainData.style.date[column]" >
+										<div>
+       										<input 
+              									type="text" 
+              									id="mt-{{(row*8)+column}}" 
+              									name="mt{{(row*8)+column}}" 
+              									tabindex="{{(row*8)+column}}" 
+              									ng-init="setOldValue('empty')" 
+									   			ng-focus="setOldValue(parseDate(mainData.cells[row][column]))" 
+									   			ng-blur="updateCell(parseDate(oldValue),row,column,$event)" 
+												ng-style="{width: getVal(mainData.headerArray.leftHeaders[column],1) + 'px'}"
+              									uib-datepicker-popup="dd-MM-yyyy"
+              									datepicker-options="dateOptions"
+              									ng-model="mainData.cells[row][column]"
+              									is-open="mainData.status[row][column]" 
+              									min-date="getMinDate($event,row,column)" 
+              									max-date="maxDate" 
+              									starting-day="1" 
+              									date-disabled="null" 
+              									ng-required="true" 
+              									close-text="Close" 
+              									ng-click="openDt($event,row,column)"
+              								/>
+            								
+        								</div>
+									</div>
+              						<!-- Display regular values (not dates) -->
+              						<div ng-if="!mainData.style.updateable[column]">
+										<div ng-if="!mainData.style.date[column]">
+											<input 	type="text" 
+												id="mt-{{(row*8)+column}}" 
+												name="mt{{(row*8)+column}}" 
+									   			tabindex="{{(row*8)+column}}" 
+									   			ng-init="oldValue=''" 
+									   			ng-focus="oldValue=mainData.cells[row][column]" 
+									   			ng-blur="updateCell(oldValue,row,column,$event)" 
+									   			ng-model="mainData.cells[row][column]"
+									   			ng-style="{width: getVal(mainData.headerArray.leftHeaders[column],1) + 'px'}"
+									   			/> 
+										</div>
+									</div>
+								</div>
+							</td>
+						<tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
+		<div id="topr" class="panel-2" >	
+			<table>
+				<thead>
+					<tr>
+						<th ng-repeat="iY in mainData.headerArray.years |orderBy:'-years'" colspan="{{getVal(iY,1)}}" class="tbl-under tbl-rbord" >
+							<div ng-repeat="(key,value) in iY" style="text-align:center" >
+								{{ key }}
+							</div>
+						</th>
+					</tr>
+					<tr>
+						<th ng-repeat="iQ in mainData.headerArray.quarters|orderBy:'-quarters'" colspan="{{getVal(iQ,1)}}" class="tbl-under tbl-rbord" >
+							<div ng-repeat="(key,value) in iQ" style="text-align:center">
+								{{ key }}
+							</div>										
+						</th>
+					</tr>
+					<tr>
+						<th ng-repeat="iM in mainData.headerArray.months |orderBy:'-months'" class="tbl-under tbl-rbord"> 
+							<div ng-repeat="(key,value) in iM" ng-style="{width: value * mainData.headerArray.screen.colWidth + 'px'}" style="text-indent:5%" >
+									{{ key }}
+							</div>										
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="row in mainData.rows" ng-class-even="'even-row'" ng-class-odd="'odd-row'" >
+                 		<td colspan="50" >
+                       		<div ng-if="mainData.cells[row] != null" ng-class="'fix-row-h'">
+                            	<svg width="100%" height="100%">
+                           			<rect
+                               			y="2"
+                                       	x="0"
+                                    	ng-attr-width="{{setGannt('rect1w',row)}}"
+                                     	height="26px"
+                                   		stroke="black"
+                                       	stroke-width="1"
+                                   		fill="white"/>
+                                	<rect
+                                    	y="2"
+                                      	ry="2"
+                                      	rx="2"
+                                      	ng-attr-x="setGannt('rect2x',row)"
+                                      	ng-attr-width="setGannt('rect2w',row)"
+                                      	height="26px"
+                                 		stroke="black"
+                                      	stroke-width="2"
+                                      	fill="blue"/>
+                                  	<line ng-if="mainData.deps[row].deps.length  > 0"
+                                 		x1="0"
+                                    	y1="0"
+                                    	x2="0"
+                                     	y2="0"
+                                    	style="stroke:rgb(255,0,0);stroke-width:2"
+                                      	stroke="red"
+                                     	stroke-width="2" />
+                             		<circle ng-if="mainData.deps[row].deps.length  > 0"
+                                    	ng-attr-cx="setGannt('c1cx',row)"
+                                      	text="1"
+                                      	cy="15"
+                                     	r="7"
+                                       	stroke="black"
+                                     	stroke-width="1"
+                                   		fill="red" />
+                        			<rect
+                                		y="2"
+                                     	ng-attr-x="setGannt('rect3x',row)"
+                                    	ng-attr-width="setGannt('rect3w',row)"
+                                  		height="26px"
+                                      	stroke="black"
+                                     	stroke-width="1"
+										fill="white"/>
+                           			<line ng-if="mainData.deps[row].preds.length  > 0"
+                               			ng-attr-x1="setGannt('pcx',row)"
+                                 		y1="15"
+                                     	ng-attr-x2="setGannt('pcx',row)"
+                                     	y2="30"
+                                     	stroke="red"
+                                   		stroke-width="2" />
+                             		<circle ng-if="mainData.deps[row].preds.length  > 0"
+                               			text="1"
+                                    	ng-attr-cx="setGannt('pcx',row)"
+                                     	cy="15"
+                                  		r="7"
+                                  		stroke="black"
+                                    	stroke-width="1"
+                                   		fill="green" />
+                   				</svg>
+               				</div>
+                  		</td>
+                   	</tr>
+				</tbody>
+			</table>
+		</div>

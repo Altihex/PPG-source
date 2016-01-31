@@ -1,0 +1,30 @@
+<div ng-init="init(sess)"></div>
+<div ng-init="getProjList()"></div>
+<div ng-include src="'partials/menuLI.html'"></div>
+<div id="status-bar">
+	{{submissionMessage}}<br>
+</div>
+<div id="projects" class="eForm" >
+	<form>
+		<table class="table" >
+			<thead>
+				<tr> 
+					<th style="width:60px">ID</th>
+					<th style="width:200px">Project Name</th>
+					<th style="width:120px">Start Date</th>
+					<th style="width:120px">Finish Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="row in projList.rows" ng-class-even="'even-row'" ng-class-odd="'odd-row'"> 
+					<td ng-repeat="column in projList.cols">
+						<input type="text" class="form-control"
+							ng-readonly="false" 
+							ng-dblclick="loadMain(projList.cells[row][0],event)" 
+							ng-model="projList.cells[row][column]"/> 
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+</div>

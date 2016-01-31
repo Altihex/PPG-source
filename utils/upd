@@ -1,0 +1,3 @@
+#!/bin/bash
+cd /media/sf_ppg2
+bash update.sh

@@ -1,0 +1,126 @@
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+body { 
+	width:8000px;
+}
+
+#header {
+    background-color:black;
+    color:white;
+   	padding:5px;
+}
+#status-bar {
+    background-color:black;
+    color:white;
+    clear:both;
+    text-align:left;
+    float:footer;	 	 
+}
+#menu {
+    background-color:black;
+    /*color:white;*/
+    text-align:left;
+    padding:10px; 
+    
+}
+
+.panel-1 {
+	
+	display:block;
+	width:543px;
+	margin-top:10px;
+	margin-right:1px;
+	margin-left:20px;
+	float:left;
+	/*overflow:scroll;*/
+}
+.panel-2 {
+	display:block;
+	width:7000px;
+	margin-top:10px;
+	margin-right:1px;
+	float:left;
+	/*overflow:scroll;*/
+}
+
+.eForm {
+	margin-top:10px;
+	margin-left:20px;
+	margin-bottom:20px;
+	width:500px;	
+
+}
+
+.m-list { 
+	padding-top: 3px;
+    padding-right: 20px;
+    padding-bottom: 3px;
+    padding-left:20px;
+    white-space: no-wrap;
+}
+.tbl-under {
+	border-bottom: 1px;
+    border-bottom-width: 1px;
+    border-bottom-color: grey;
+    border-bottom-style: solid;	
+}
+.tbl-rbord {
+	border-right: 1px;
+    border-right-width: 1px;
+    border-right-color: grey;
+    border-right-style: solid;	
+}
+tr {
+	height:30px;
+}
+
+tr, td, th {
+	/*border: 1px solid blue;*/
+	padding-left:2px;
+	padding-right:2px;
+}
+
+input {
+	background:transparent;
+	padding:1px;
+	border-radius:4px;
+	border-style:none;
+	width:inherit;
+	margin:0px;
+}
+/* Date picker classes */
+.full button span {
+    background-color: limegreen;
+    border-radius: 32px;
+    color: black;
+  }
+.partially button span {
+    background-color: orange;
+    border-radius: 32px;
+    color: black;
+ }
+
+
+
+
+
+/* Angular classes */
+.odd-row 	{ background-color: #FFF; }
+.even-row 	{ background-color: #f9eeee; }
+.fix-row-h 	{ height:30px;
+			  padding-top:0px;
+			  padding-bottom:0px;
+			  
+			}
+
+.ng-dirty {
+	background-color:#eee0e4;
+}
+form.ng-dirty {
+	background-color: white;
+}
+
+.ng-binding .ng-scope {
+	width:inherit;
+	margin:0px;
+}
